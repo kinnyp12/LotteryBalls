@@ -45,5 +45,4 @@ class SelectedLotteryBallsCell: UITableViewCell {
     
     @IBOutlet weak var vwBalls: UIView!
     
-
 }

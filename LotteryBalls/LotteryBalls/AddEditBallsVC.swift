@@ -10,54 +10,58 @@ import UIKit
 class AddEditBallsVC: UIViewController {
 
     
-    @IBOutlet weak var selectedStack: UIStackView!
-    @IBOutlet weak var normalStackVer: UIStackView!
+    @IBOutlet weak var colSelectedBall: UICollectionView!
+    @IBOutlet weak var colNormalBall: UICollectionView!
     
     var buttons = ArraysData.lotteryBalls[MyStrings.selectedLottery]
 
-    let columns = 7  // Number of columns in each row
-
+    var selectedBalls = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        var rowIndex = 0
-                
-        // Loop through the buttons array in chunks of 'columns'
-        for _ in stride(from: 0, to: buttons ?? 0, by: columns) {
-            let horizontalStack = UIStackView()
-            horizontalStack.axis = .horizontal
-            horizontalStack.spacing = 10
-            horizontalStack.alignment = .center
-            horizontalStack.distribution = .fillEqually
-            normalStackVer.addArrangedSubview(horizontalStack)
-            
-            // Loop to create buttons in each row
-            for columnIndex in 0..<columns {
-                let buttonIndex = rowIndex * columns + columnIndex
-                if buttonIndex < buttons ?? 0 {
-                    let button = UIButton(type: .system)
-                    button.setImage(UIImage(named: "ball"), for: .normal)
-                    button.widthAnchor.constraint(equalToConstant: 40).isActive = true
-                    button.heightAnchor.constraint(equalToConstant: 40).isActive = true
-                    button.addTarget(self, action: #selector(buttonTapped(_:)), for: .touchUpInside)
-                    horizontalStack.addArrangedSubview(button)
-                } else {
-                    horizontalStack.addArrangedSubview(UIView()) // Placeholder view if button index exceeds count
-                }
-            }
-            
-            rowIndex += 1
-        }
-    }
-
-    @objc func buttonTapped(_ sender: UIButton) {
-        if let title = sender.titleLabel {
-            
-        }
     }
     
     @IBAction func onClickDone(_ sender: UIButton) {
+        ArraysData.selectedBalls[MyStrings.selectedLottery] = selectedBalls
         navigationController?.popViewController(animated: true)
     }
+}
+
+extension AddEditBallsVC: UICollectionViewDelegate, UICollectionViewDataSource{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == colSelectedBall{
+            return selectedBalls
+        } else{
+            return ArraysData.lotteryBalls[MyStrings.selectedLottery] ?? 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "normalBallsCell", for: indexPath) as! NormalBallsCell
+        cell.btnNormalBall.setImage(UIImage(named: "ball"), for: .normal)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == colSelectedBall{
+            selectedBalls -= 1
+            ArraysData.lotteryBalls[MyStrings.selectedLottery]! += 1
+        } else{
+            if selectedBalls < 5{
+                selectedBalls += 1
+                ArraysData.lotteryBalls[MyStrings.selectedLottery]! -= 1
+            }
+        }
+        colSelectedBall.reloadData()
+        colNormalBall.reloadData()
+    }
+}
+
+class NormalBallsCell: UICollectionViewCell{
+    
+    @IBOutlet weak var btnNormalBall: UIButton!
+    
 }
