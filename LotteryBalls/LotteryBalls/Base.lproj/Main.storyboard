@@ -585,7 +585,7 @@
     </scenes>
     <designables>
         <designable name="REU-KO-DuE">
-            <size key="intrinsicContentSize" width="109.33333333333333" height="29"/>
+            <size key="intrinsicContentSize" width="160.33333333333334" height="25"/>
         </designable>
     </designables>
     <resources>

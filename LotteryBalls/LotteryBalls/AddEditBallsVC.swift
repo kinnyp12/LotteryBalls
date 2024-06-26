@@ -24,7 +24,9 @@ class AddEditBallsVC: UIViewController {
     }
     
     @IBAction func onClickDone(_ sender: UIButton) {
-        ArraysData.selectedBalls[MyStrings.selectedLottery] = selectedBalls
+        if selectedBalls != 0{
+            ArraysData.selectedBalls[MyStrings.selectedLottery]?.append(selectedBalls)
+        }
         navigationController?.popViewController(animated: true)
     }
 }

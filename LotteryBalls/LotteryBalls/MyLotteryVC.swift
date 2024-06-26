@@ -16,7 +16,7 @@ class MyLotteryVC: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        keys = Array(ArraysData.selectedBalls.keys).filter { ArraysData.selectedBalls[$0] != 0 }
+        keys = Array(ArraysData.selectedBalls.keys).filter { ArraysData.selectedBalls[$0]?.reduce(0, +) != 0 }
 
     }
     
@@ -34,7 +34,7 @@ extension MyLotteryVC: UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let key = keys[section]
-        return ArraysData.selectedBalls[key] ?? 0
+        return ArraysData.selectedBalls[key]?.reduce(0, +) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -8,8 +8,6 @@
 import UIKit
 
 class SelectedLotteryVC: UIViewController {
-
-    var ballcount = 5
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +16,6 @@ class SelectedLotteryVC: UIViewController {
     }
     
     @IBAction func onClickSave(_ sender: UIButton) {
-        ArraysData.selectedBalls[MyStrings.selectedLottery] = ballcount
         navigationController?.popViewController(animated: true)
     }
 
@@ -27,7 +24,7 @@ class SelectedLotteryVC: UIViewController {
 extension SelectedLotteryVC: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return ArraysData.selectedBalls[MyStrings.selectedLottery]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

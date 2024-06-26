@@ -33,7 +33,7 @@ struct ArraysData{
  
     static var lotteryBalls: [String: Int] = [MyStrings.powerBall : 69, MyStrings.megaMillions : 70, MyStrings.lotto : 52, MyStrings.northStarCash : 31, MyStrings.gopher5 : 47, MyStrings.daily3 : 9]
 
-    static var selectedBalls: [String: Int] = [MyStrings.powerBall : 0, MyStrings.megaMillions : 0, MyStrings.lotto : 0, MyStrings.northStarCash : 0, MyStrings.gopher5 : 0, MyStrings.daily3 : 0]
+    static var selectedBalls: [String: [Int]] = [MyStrings.powerBall : [], MyStrings.megaMillions : [], MyStrings.lotto : [], MyStrings.northStarCash : [], MyStrings.gopher5 : [], MyStrings.daily3 : []]
 
 }
 
